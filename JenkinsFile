@@ -42,20 +42,29 @@ pipeline{
             }
         }
 
-        stage("CLEANUP") {
-            steps {
-                // list files before cleanup
-                sh 'echo "Files before cleanup:"'
-                sh 'ls -la'
+        stage("PUBLISH ARTIFACT"){
+            
+            steps{
 
-                // clean up workspace
-                deleteDir()
-
-                // list files after cleanup
-                sh 'echo "Files after cleanup:"'
-                sh 'ls -la'
+                //PUSHING THE ZIP FILE INTO THE NEXUS 
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: '54.145.77.177:8081',
+                        groupId: 'com.roboshop',
+                        version: '1.0.0.0',
+                        repository: 'Catalogue',
+                        credentialsId: 'nexus-auth',
+                        artifacts: [
+                            [artifactId: 'Roboshop',
+                                classifier: '',
+                                file: 'catalogue.zip',
+                                type: 'jar']
+                        ]
+                    )
             }
         }
+
 
         stage("DEPLOY"){
 
@@ -66,5 +75,14 @@ pipeline{
             }
         }
     }
+
+    // post{
+
+    //     always{
+
+    //         //CLEAN UP WORKSPACE
+    //          deleteDir()
+    //     }
+    // }
 
 }
