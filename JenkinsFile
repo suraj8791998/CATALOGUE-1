@@ -1,0 +1,54 @@
+pipeline{
+    
+    //agent defining
+    agent { node { label 'roboshop_catalogue' } }
+
+    stages{
+
+        stage("INSTALLING DEPENDENCIES"){
+
+            steps{
+                
+                //INSTALLING DEPENDENCIES
+                sh 'npm install'
+            }
+        }
+
+        stage("UNIT TESTING"){
+
+            steps{
+
+                //UNIT TEST WILL BE DONE HERE
+                echo 'UNIT TEST WILL BE DONE HERE'
+            }
+        }
+
+        stage("SONAR-SCANNER"){
+
+            steps{
+
+                //SONAR-SCANNER
+                sh 'sonar-scanner'
+            }
+        }
+
+        stage("BUILD"){
+
+            steps{
+
+                //GENERATING ZIP FILE HERE
+                sh 'zip -r ./* --exclude=.git --exclude=.zip'
+            }
+        }
+
+        stage("DEPLOY"){
+
+            steps{
+
+                //DEPLOYING TO SERVER
+                echo "DEPLOY WILL BE DONE HERE"
+            }
+        }
+    }
+
+}
