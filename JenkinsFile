@@ -42,6 +42,21 @@ pipeline{
             }
         }
 
+        stage("CLEANUP") {
+            steps {
+                // list files before cleanup
+                sh 'echo "Files before cleanup:"'
+                sh 'ls -la'
+
+                // clean up workspace
+                deleteDir()
+
+                // list files after cleanup
+                sh 'echo "Files after cleanup:"'
+                sh 'ls -la'
+            }
+        }
+
         stage("DEPLOY"){
 
             steps{
