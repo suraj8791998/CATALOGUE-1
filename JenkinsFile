@@ -37,7 +37,8 @@ pipeline{
             steps{
 
                 //GENERATING ZIP FILE HERE
-                sh 'zip -r ./* --exclude=.git --exclude=.zip'
+                sh 'zip -r catalogue.zip ./* --exclude=.git --exclude=.zip'
+                sh 'ls -ltr'
             }
         }
 
