@@ -56,7 +56,7 @@ pipeline{
                         repository: 'Catalogue',
                         credentialsId: 'nexus-auth',
                         artifacts: [
-                            [artifactId: 'Roboshop',
+                            [artifactId: 'catalogue',
                                 classifier: '',
                                 file: 'catalogue.zip',
                                 type: 'jar']
@@ -76,13 +76,13 @@ pipeline{
         }
     }
 
-    // post{
+    post{
 
-    //     always{
+        always{
 
-    //         //CLEAN UP WORKSPACE
-    //          deleteDir()
-    //     }
-    // }
+            //CLEAN UP WORKSPACE
+             deleteDir()
+        }
+    }
 
 }
